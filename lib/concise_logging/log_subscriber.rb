@@ -52,10 +52,10 @@ module ConciseLogging
     end
 
     def format_method(method)
-      if method.strip == "GET"
+      if method.strip == "POST"
         color(method, CYAN)
       else
-        color(method, MAGENTA)
+        color(method, YELLOW)
       end
     end
 
