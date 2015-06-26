@@ -22,16 +22,17 @@ module ConciseLogging
       db = payload[:db_runtime].to_i
 
       message = format(
-        "%{method} %{status} %{ip} %{path}",
-        ip: format("%-15s", ip),
-        method: format_method(format("%-6s", method)),
+        "%{status} %{duration} %{method} %{path}",
+        duration: "in #{event.duration.round}ms",
+        method: format_method(method),
         status: format_status(status),
         path: path
       )
       message << " redirect_to=#{location}" if location.present?
       message << " parameters=#{params}" if params.present?
       message << " #{color(exception_details, RED)}" if exception_details.present?
-      message << " (app:#{app}ms db:#{db}ms)"
+      message << " (app: #{app}ms db: #{db}ms)"
+      message << " for #{format("%-15s", ip)}"
 
       logger.warn message
     end
@@ -52,9 +53,9 @@ module ConciseLogging
 
     def format_method(method)
       if method.strip == "GET"
-        method
-      else
         color(method, CYAN)
+      else
+        color(method, MAGENTA)
       end
     end
 
