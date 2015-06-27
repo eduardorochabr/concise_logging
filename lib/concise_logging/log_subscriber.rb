@@ -23,7 +23,7 @@ module ConciseLogging
 
       message = format(
         "%{prefix} %{status} in %{duration} %{method} %{path}",
-        prefix: color("RAILS", RED)
+        prefix: color("RAILS", RED),
         duration: "#{event.duration.round}ms",
         method: format_method(method),
         status: format_status(status),
