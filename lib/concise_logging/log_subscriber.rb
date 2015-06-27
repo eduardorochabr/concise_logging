@@ -22,8 +22,8 @@ module ConciseLogging
       db = payload[:db_runtime].to_i
 
       message = format(
-        "%{status} %{duration} %{method} %{path}",
-        duration: "in #{event.duration.round}ms",
+        "RAILS %{status} in %{duration} %{method} %{path}",
+        duration: "#{event.duration.round}ms",
         method: format_method(method),
         status: format_status(status),
         path: path
